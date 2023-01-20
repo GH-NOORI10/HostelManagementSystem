@@ -1,31 +1,31 @@
 ﻿@model HostelManagementSystem.Data.Student
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Edit";
 }
 
-<h1>Create</h1>
+<h1>Edit</h1>
 
-<form asp-action="Create">
+<form asp-action="Edit">
     <div class="row">
         <div class="col-lg-6 mb-2">
             <label class="control-label">Student Name</label>
-            <input type="text" asp-for="Name" class="form-control" placeholder="name">
+            <input type="text" asp-for="Name" class="form-control" placeholder="floor">
         </div>
         <div class="col-lg-6 mb-2">
             <label class="control-label">Email</label>
-            <input type="email" asp-for="Email" class="form-control" placeholder="email">
+            <input type="email" asp-for="Email" class="form-control" placeholder="floor">
         </div>
         <div class="col-lg-6 mb-2">
             <label class="control-label">Phone</label>
-            <input type="text" asp-for="Phone" class="form-control" placeholder="phone">
+            <input type="number" asp-for="Phone" class="form-control" placeholder="floor">
         </div>
         <div class="col-lg-6 mb-2">
             <label class="control-label">Addmission date</label>
-            <input type="date" asp-for="AdmissionDate" class="form-control" placeholder="">
+            <input type="date" asp-for="AdmissionDate" class="form-control" placeholder="floor">
         </div>
         <div class="col-lg-6 mb-2">
             <label class="control-label">Leaving Date</label>
-            <input type="date" asp-for="LeavingDate" class="form-control" placeholder="">
+            <input type="date" asp-for="LeavingDate" class="form-control" placeholder="floor">
         </div>
         <div class="col-lg-6 mb-2">
             <label class="control-label">Room No</label>

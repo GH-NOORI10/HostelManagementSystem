@@ -35,41 +35,48 @@ namespace HostelManagementSystem.Controllers
             _context.SaveChanges();
             return RedirectToAction("Index");
         }
-        //public IActionResult Edit(int id)
-        //{
-        //    ViewBag.Floor = new SelectList(
-        //        _context.Floors.Select(x => new { x.Id, x.FloorLocation }), "Id", "FloorLocation");
+        public IActionResult Edit(int id)
+        {
+            ViewBag.Floor = new SelectList(
+                _context.Floors.Select(x => new { x.Id, x.FloorLocation }), "Id", "FloorLocation");
 
-        //    var data = _context.Rooms.Where(x => x.Id == id).FirstOrDefault();
-        //    return View(data);
-        //}
+            var data = _context.Rooms.Where(x => x.Id == id).FirstOrDefault();
+            return View(data);
+        }
 
-        //[HttpPost]
-        //public IActionResult Edit(Room model)
-        //{
-        //    _context.Rooms.Update(model);
-        //    _context.SaveChanges();
-        //    return RedirectToAction("Index");
-        //}
+        [HttpPost]
+        public IActionResult Edit(Room model)
+        {
+            _context.Rooms.Update(model);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+        }
 
-        //[HttpGet]
-        //public IActionResult Delete(int id)
-        //{
-        //    var data = _context.Rooms.Include(s=>s.FloorLocation).Where(x => x.Id == id).FirstOrDefault();
-        //    return View(data);
-        //}
+        [HttpGet]
+        public IActionResult Delete(int id)
+        {
+            var data = _context.Rooms.Where(x => x.Id == id).FirstOrDefault();
+            return View(data);
+        }
 
-        //[HttpPost]
-        //public IActionResult Delete(Floor model)
-        //{
-        //    var exist = _context.Rooms.Where(x => x.Id == model.Id).FirstOrDefault();
-        //    if (exist != null)
-        //    {
-        //        _context.Rooms.Remove(exist);
-        //        _context.SaveChanges();
-        //    }
+        [HttpPost]
+        public IActionResult Delete(Floor model)
+        {
+            try
+            {
+                var exist = _context.Rooms.Include(s => s.Floor).Where(x => x.Id == model.Id).FirstOrDefault();
+                if (exist != null)
+                {
+                    _context.Rooms.Remove(exist);
+                    _context.SaveChanges();
+                }
+                return Json("success");
+            }
+            catch(Exception ex)
+            {
+                return Json(ex.Message);
 
-        //    return RedirectToAction("Index");
-        //}
+            }
+        }
     }
 }

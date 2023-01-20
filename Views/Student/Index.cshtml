@@ -29,14 +29,7 @@
                     <td>@item.Phone</td>
                     <td>@item.AdmissionDate</td>
                     <td>@item.LeavingDate</td>
-                    @if (@item.RoomId == null)
-                    {
-                        <td>null</td>
-                    }
-                    else
-                    {
-                        <td>@item.RoomId</td>
-                    }
+                    <td>@item.Room.RoomNo</td>
                    
                   <td>
                       <a class="btn btn-success btn-sm" href="/Student/Edit/@item.Id">Edit</a>

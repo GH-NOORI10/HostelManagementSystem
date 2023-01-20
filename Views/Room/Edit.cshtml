@@ -1,0 +1,35 @@
+﻿@model HostelManagementSystem.Data.Room
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<form asp-action="Edit">
+
+    <input type="hidden" asp-for="Id" />
+
+
+    <div class="row">
+        <div class="col-lg-6 mb-2">
+            <label class="control-label">Room</label>
+            <input type="text" asp-for="RoomNo" class="form-control" placeholder="floor">
+        </div>
+        <div class="col-lg-6 mb-2">
+            <label class="control-label">Room Type</label>
+            <input type="text" asp-for="RoomType" class="form-control" placeholder="floor">
+        </div>
+        <div class="col-lg-6 mb-2">
+            <label class="control-label">Room Status</label>
+            <input type="text" asp-for="RoomStatus" class="form-control" placeholder="floor">
+        </div>
+         <div class="col-lg-6 mb-2">
+            <label class="control-label">Floor</label>
+            <select class="form-control" asp-for="FloorId" asp-items="ViewBag.Floor" required>
+                <option value="">---Select Floor----</option>
+            </select>
+        </div>
+    </div>
+    <input type="submit" value="submit" />
+</form>
+
