@@ -1,0 +1,17 @@
+﻿@model HostelManagementSystem.Data.Floor
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<form asp-action="Create">
+    <div class="row">
+        <div class="col-lg-6 mb-2">
+            <label class="control-label">FloorLocation</label>
+            <input type="text" asp-for="FloorLocation" class="form-control" placeholder="floor">
+        </div>
+    </div>
+    <input type="submit" value="submit" />
+</form>
+

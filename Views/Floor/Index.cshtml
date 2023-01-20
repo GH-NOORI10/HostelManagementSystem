@@ -1,0 +1,34 @@
+﻿@model IList<HostelManagementSystem.Data.Floor>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+<div class="col-12">
+    <div class="col-12 mb-2">
+        <a class="btn btn-info text-sm-left" href="/Floor/Create">Create Floor</a>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>FloorLocation</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tboady>
+            @foreach(var item in Model)
+            {
+              <tr>
+                    <td>@item.FloorLocation</td>
+                  <td>
+                      <a class="btn btn-success btn-sm" href="/Floor/Edit/@item.Id">Edit</a>
+                        <a class="btn btn-danger btn-sm" href="/Floor/Delete/@item.Id">Delete</a>
+                  </td>
+              </tr>
+
+            }
+            
+        </tboady>
+    </table>
+</div>
+

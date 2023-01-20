@@ -1,0 +1,40 @@
+﻿@model IList<HostelManagementSystem.Data.StudentMonthlyFee>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+<div class="col-12">
+    <div class="col-12 mb-2">
+        <a class="btn btn-info text-sm-left" href="/StudentMonthlyFee/Create">Create Floor</a>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Month</th>
+                <th>Admission Fee</th>
+                <th>Room Fee</th>
+                <th>Student Name</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tboady>
+            @foreach(var item in Model)
+            {
+              <tr>
+                  <td>@item.Month</td>
+                    <td>@item.AdmissionFee</td>
+                    <td>@item.Fee</td>
+                    <td>@item.Student.Name</td>
+                  <td>
+                        <a class="btn btn-success btn-sm" href="/StudentMonthlyFee/Edit/@item.Id">Edit</a>
+                        <a class="btn btn-danger btn-sm" href="/StudentMonthlyFee/Delete/@item.Id">Delete</a>
+                  </td>
+              </tr>
+
+            }
+            
+        </tboady>
+    </table>
+</div>
+

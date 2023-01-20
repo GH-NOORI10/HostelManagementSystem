@@ -1,0 +1,52 @@
+﻿@model IList<HostelManagementSystem.Data.Student>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+<div class="col-12">
+    <div class="col-12 mb-2">
+        <a class="btn btn-info text-sm-left" href="/Student/Create">Add Student</a>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Admission Date</th>
+                <th>Leaving Date</th>
+                <th>Room Allocate</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tboady>
+            @foreach(var item in Model)
+            {
+              <tr>
+                    <td>@item.Name</td>
+                    <td>@item.Email</td>
+                    <td>@item.Phone</td>
+                    <td>@item.AdmissionDate</td>
+                    <td>@item.LeavingDate</td>
+                    @if (@item.RoomId == null)
+                    {
+                        <td>null</td>
+                    }
+                    else
+                    {
+                        <td>@item.RoomId</td>
+                    }
+                   
+                  <td>
+                      <a class="btn btn-success btn-sm" href="/Student/Edit/@item.Id">Edit</a>
+                        <a class="btn btn-danger btn-sm" href="/Student/Delete/@item.Id">Delete</a>
+                  </td>
+              </tr>
+
+            }
+            
+        </tboady>
+    </table>
+</div>
+
