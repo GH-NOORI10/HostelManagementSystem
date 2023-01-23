@@ -63,14 +63,21 @@ namespace HostelManagementSystem.Controllers
         [HttpPost]
         public IActionResult Delete(Student model)
         {
-            var exist = _context.Students.Where(x => x.Id == model.Id).FirstOrDefault();
-            if (exist != null)
+            try
             {
-                _context.Students.Remove(exist);
-                _context.SaveChanges();
+                var exist = _context.Students.Include(s => s.Room).Where(x => x.Id == model.Id).FirstOrDefault();
+                if (exist != null)
+                {
+                    _context.Students.Remove(exist);
+                    _context.SaveChanges();
+                }
+                return Json("success");
             }
+            catch (Exception ex)
+            {
+                return Json(ex.Message);
 
-            return RedirectToAction("Index");
+            }
         }
     }
 }

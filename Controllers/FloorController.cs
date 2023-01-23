@@ -1,6 +1,7 @@
 ﻿using HostelManagementSystem.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace HostelManagementSystem.Controllers
 {
@@ -58,14 +59,21 @@ namespace HostelManagementSystem.Controllers
         [HttpPost]
         public IActionResult Delete(Floor model)
         {
-            var exist = _context.Floors.Where(x => x.Id == model.Id).FirstOrDefault();
-            if (exist != null)
+            try
             {
-                _context.Floors.Remove(exist);
-                _context.SaveChanges();
+                var exist = _context.Floors.Include(s => s.Room).Where(x => x.Id == model.Id).FirstOrDefault();
+                if (exist != null)
+                {
+                    _context.Floors.Remove(exist);
+                    _context.SaveChanges();
+                }
+                return Json("success");
             }
+            catch (Exception ex)
+            {
+                return Json(ex.Message);
 
-            return RedirectToAction("Index");
+            }
         }
 
     }
