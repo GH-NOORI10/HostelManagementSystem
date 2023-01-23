@@ -31,7 +31,25 @@ namespace HostelManagementSystem.Controllers
         [HttpPost]
         public IActionResult Create(StudentMonthlyFee model)
         {
-            _context.StudentMonthlyFee.Add(model);
+            var exist=_context.Students.Where(x=>x.Id==model.StudentId).ToList();
+            if(model.StudentId==0)
+            {
+                exist=_context.Students.ToList();
+            }
+            foreach(var itm in exist)
+            {
+                var existentry = _context.StudentMonthlyFee.Where(w => w.Month == model.Month && w.StudentId == itm.Id).FirstOrDefault();
+                if(existentry==null)
+                {
+                    StudentMonthlyFee monthlyFee = new StudentMonthlyFee();
+                    monthlyFee.Month = model.Month;
+                    monthlyFee.Fee = model.Fee;
+                    monthlyFee.AdmissionFee = model.AdmissionFee;
+                    monthlyFee.StudentId = itm.Id;     
+                    _context.StudentMonthlyFee.Add(monthlyFee);
+
+                }
+            }
             _context.SaveChanges();
             return RedirectToAction("Index");
         }
@@ -63,14 +81,21 @@ namespace HostelManagementSystem.Controllers
         [HttpPost]
         public IActionResult Delete(StudentMonthlyFee model)
         {
-            var exist = _context.StudentMonthlyFee.Where(x => x.Id == model.Id).FirstOrDefault();
-            if (exist != null)
+            try
             {
-                _context.StudentMonthlyFee.Remove(exist);
-                _context.SaveChanges();
+                var exist = _context.StudentMonthlyFee.Include(s => s.Student).Where(x => x.Id == model.Id).FirstOrDefault();
+                if (exist != null)
+                {
+                    _context.StudentMonthlyFee.Remove(exist);
+                    _context.SaveChanges();
+                }
+                return Json("success");
             }
+            catch (Exception ex)
+            {
+                return Json(ex.Message);
 
-            return RedirectToAction("Index");
+            }
         }
     }
 }
