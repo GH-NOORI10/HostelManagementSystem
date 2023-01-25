@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace HostelManagementSystem.Controllers
 {
@@ -16,7 +17,7 @@ namespace HostelManagementSystem.Controllers
 
         public IActionResult Index()
         {
-            var data = _context.StudentMonthlyFee.Include(x => x.Student).ToList();
+            var data = _context.StudentMonthlyFee.Include(x => x.Student).Where(s=>s.ReceiveFee.Count()==0).ToList();
             return View(data);
         }
 

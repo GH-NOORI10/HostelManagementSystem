@@ -1,4 +1,4 @@
-﻿@model IList<HostelManagementSystem.Data.StudentMonthlyFee>
+﻿@model IList<HostelManagementSystem.Data.ReceiveFee>
 @{
     ViewData["Title"] = "Index";
 }
@@ -10,41 +10,40 @@
                 <div class="card">
                     <!-- /.card-header -->
                     <div class="card-body">
-                        <a class="btn btn-info text-sm-left mb-2" href="/StudentMonthlyFee/Create">Add StudentMonthlyFee</a>
+                        <a class="btn btn-info text-sm-left mb-2" href="/ReceiveFee/Create">Create FeeSlip</a>
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
-                                    <th>Month</th>
-                                    <th>Fee</th>
-                                    <th>Admission Fee</th>
+                                    <th>Receive Date</th>
                                     <th>Student Name</th>
+                                    <th>Student Fee</th>
                                     <th>Action</th>
-                                </tr>
+                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach (var item in Model)
-                                {
-                                    <tr>
-                                        <td>@item.Month</td>
-                                        <td>@item.Fee</td>
-                                        <td>@item.AdmissionFee</td>
-                                        <td>@item.Student.Name</td>
-                                        <td>
-                                            <a class="btn btn-success btn-sm" href="/Room/Edit/@item.Id">Edit</a>
+                                @foreach(var item in Model)
+                              {
+                                <tr>
+                                      <td>@item.ReceiveFeeDate</td>
+                                      <td>@item.StudentMonthlyFee.Student.Name</td>
+                                      <td>@item.StudentMonthlyFee.Fee</td>
+                                      <td>
+                                            <a class="btn btn-success btn-sm" href="/ReceiveFee/Edit/@item.Id">Edit</a>
                                             <a class="btn btn-danger btn-sm" onclick="deletead(@item.Id)">Delete</a>
                                         </td>
-                                    </tr>
-                                }
+                                </tr>
+                              }
                             </tbody>
                         </table>
                     </div>
                     <!-- /.card-body -->
                 </div>
                 <!-- /.card -->
+
                 <!-- /.card -->
             </div>
-        </div>
-
+            </div>
+         
     </div><!-- /.container-fluid -->
 </section>
 
@@ -52,16 +51,14 @@
 <script src="~/plugins/jquery/jquery.slim.min.js"></script>
 <script src="~/plugins/jquery/jquery.slim.js"></script>
 <script src="~/plugins/jquery/jquery.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.7.0/sweetalert2.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.7.0/sweetalert2.css"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.7.0/sweetalert2.min.js"></script>
 
 <script>
-    
+    var dsd=$('#dsf').val();
+ 
 
-    var dsd = $('#dsf').val();
-
-
-    function deletead(val) {
+        function deletead (val){
         Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
@@ -71,18 +68,19 @@
             cancelButtonColor: '#d33',
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
-            if (result.isConfirmed) {
-
-                $.post("/StudentMonthlyFee/Delete/" + val, function (data) {
-                    if (data == "success") {
-                        Swal.fire(
-                            'Deleted!',
-                            'Your file has been deleted.',
-                            'success'
-                        )
-                        location.reload();
+         if (result.isConfirmed) {
+            
+                $.post("/ReceiveFee/Delete/" + val,function(data){
+                    if(data=="success")
+                    {
+                    Swal.fire(
+                        'Deleted!',
+                        'Your file has been deleted.',
+                        'success'
+                    )
+                    location.reload();
                     }
-                    else {
+                    else{
                         Swal.fire(
                             'Not Deleted!',
                             data,
@@ -90,12 +88,12 @@
                         )
                     }
                 })
-
-
+           
+        
             }
         })
     }
 
-
+   
 </script>
 

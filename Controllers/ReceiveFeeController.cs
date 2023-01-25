@@ -5,50 +5,52 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HostelManagementSystem.Controllers
 {
-    public class StudentController : Controller
+    public class ReceiveFeeController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public StudentController(ApplicationDbContext context)
+        public ReceiveFeeController(ApplicationDbContext context)
         {
             _context = context;
         }
 
         public IActionResult Index()
         {
-            var data = _context.Students.Include(x=>x.Room).ToList();
+            var data = _context.ReceiveFees.Include(x => x.StudentMonthlyFee).ThenInclude(s => s.Student).ToList();
             return View(data);
         }
 
         [HttpGet]
         public IActionResult Create()
         {
-            ViewBag.Room = new SelectList(
-                _context.Rooms.Select(x => new { x.Id, x.RoomNo }), "Id", "RoomNo");
+            ViewBag.StudentMonthlyFee = new SelectList(
+                _context.StudentMonthlyFee.Where(s=>s.ReceiveFee.Count()==0).Select(x => new { x.Id, x.Student.Name }), "Id", "Name");
             return View();
         }
 
         [HttpPost]
-        public IActionResult Create(Student model)
+        public IActionResult Create(ReceiveFee model)
         {
-            _context.Students.Add(model);
+            var exist = _context.StudentMonthlyFee.Where(x => x.Id == model.StudentMonthlyFeeId).FirstOrDefault();
+            model.Month = exist.Month;
+            _context.ReceiveFees.Add(model);
             _context.SaveChanges();
             return RedirectToAction("Index");
         }
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            ViewBag.Room = new SelectList(
-                _context.Rooms.Select(x => new { x.Id, x.RoomNo }), "Id", "RoomNo");
+            ViewBag.StudentMonthlyFee = new SelectList(
+                _context.StudentMonthlyFee.Select(x => new { x.Id, x.Fee }), "Id", "Fee");
 
-            var data = _context.Students.Where(x => x.Id == id).FirstOrDefault();
+            var data = _context.ReceiveFees.Where(x => x.Id == id).FirstOrDefault();
             return View(data);
         }
 
         [HttpPost]
-        public IActionResult Edit(Student model)
+        public IActionResult Edit(ReceiveFee model)
         {
-            _context.Students.Update(model);
+            _context.ReceiveFees.Update(model);
             _context.SaveChanges();
             return RedirectToAction("Index");
         }
@@ -56,7 +58,7 @@ namespace HostelManagementSystem.Controllers
         [HttpGet]
         public IActionResult Delete(int id)
         {
-            var data = _context.Students.Where(x => x.Id == id).FirstOrDefault();
+            var data = _context.ReceiveFees.Where(x => x.Id == id).FirstOrDefault();
             return View(data);
         }
 
@@ -65,10 +67,10 @@ namespace HostelManagementSystem.Controllers
         {
             try
             {
-                var exist = _context.Students.Include(s => s.Room).Where(x => x.Id == model.Id).FirstOrDefault();
+                var exist = _context.ReceiveFees.Include(s => s.StudentMonthlyFee).Where(x => x.Id == model.Id).FirstOrDefault();
                 if (exist != null)
                 {
-                    _context.Students.Remove(exist);
+                    _context.ReceiveFees.Remove(exist);
                     _context.SaveChanges();
                 }
                 return Json("success");

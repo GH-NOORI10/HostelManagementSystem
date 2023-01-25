@@ -4,6 +4,7 @@ using HostelManagementSystem.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HostelManagementSystem.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230124142450_init5")]
+    partial class init5
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -37,67 +40,6 @@ namespace HostelManagementSystem.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Floors");
-                });
-
-            modelBuilder.Entity("HostelManagementSystem.Data.Guest", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("ArrivingDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("CNIC")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("LeavingDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Phone")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("StudentId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("StudentId");
-
-                    b.ToTable("Guests");
-                });
-
-            modelBuilder.Entity("HostelManagementSystem.Data.ReceiveFee", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Month")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("ReceiveFeeDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("StudentMonthlyFeeId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("StudentMonthlyFeeId");
-
-                    b.ToTable("ReceiveFees");
                 });
 
             modelBuilder.Entity("HostelManagementSystem.Data.Room", b =>
@@ -150,6 +92,9 @@ namespace HostelManagementSystem.Data.Migrations
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("LeavingDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -401,28 +346,6 @@ namespace HostelManagementSystem.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("HostelManagementSystem.Data.Guest", b =>
-                {
-                    b.HasOne("HostelManagementSystem.Data.Student", "Student")
-                        .WithMany()
-                        .HasForeignKey("StudentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Student");
-                });
-
-            modelBuilder.Entity("HostelManagementSystem.Data.ReceiveFee", b =>
-                {
-                    b.HasOne("HostelManagementSystem.Data.StudentMonthlyFee", "StudentMonthlyFee")
-                        .WithMany("ReceiveFee")
-                        .HasForeignKey("StudentMonthlyFeeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("StudentMonthlyFee");
-                });
-
             modelBuilder.Entity("HostelManagementSystem.Data.Room", b =>
                 {
                     b.HasOne("HostelManagementSystem.Data.Floor", "Floor")
@@ -444,7 +367,7 @@ namespace HostelManagementSystem.Data.Migrations
             modelBuilder.Entity("HostelManagementSystem.Data.StudentMonthlyFee", b =>
                 {
                     b.HasOne("HostelManagementSystem.Data.Student", "Student")
-                        .WithMany("StudentMonthlyFee")
+                        .WithMany()
                         .HasForeignKey("StudentId");
 
                     b.Navigation("Student");
@@ -509,16 +432,6 @@ namespace HostelManagementSystem.Data.Migrations
             modelBuilder.Entity("HostelManagementSystem.Data.Room", b =>
                 {
                     b.Navigation("Student");
-                });
-
-            modelBuilder.Entity("HostelManagementSystem.Data.Student", b =>
-                {
-                    b.Navigation("StudentMonthlyFee");
-                });
-
-            modelBuilder.Entity("HostelManagementSystem.Data.StudentMonthlyFee", b =>
-                {
-                    b.Navigation("ReceiveFee");
                 });
 #pragma warning restore 612, 618
         }

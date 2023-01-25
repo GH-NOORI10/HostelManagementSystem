@@ -1,0 +1,36 @@
+﻿@model HostelManagementSystem.Data.ReceiveFee
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<form asp-action="Edit">
+    <div class="row">
+        <div class="col-lg-6 mb-2">
+            <label class="control-label">Month</label>
+            <input type="text" asp-for="Month" class="form-control" data-inputmask-alias="datetime" id="datemask" data-inputmask-inputformat="mm/yyyy" data-mask>
+
+        </div>
+        <div class="col-lg-6 mb-2">
+            <label class="control-label">ReceiveFeeDate</label>
+            <input type="date" asp-for="ReceiveFeeDate" class="form-control" placeholder="floor">
+        </div>
+        <div class="col-lg-6 mb-2">
+            <label class="control-label">Student Monthly Fee</label>
+            <select class="form-control" asp-for="StudentMonthlyFeeId" asp-items="ViewBag.StudentMonthlyFee" required>
+                <option value="">---Select----</option>
+            </select>
+        </div>
+    </div>
+    <input type="submit" value="submit" />
+</form>
+
+
+<script src="~/plugins/moment/moment.min.js"></script>
+
+<script src="~/plugins/inputmask/jquery.inputmask.min.js"></script>
+
+<script>
+    $('#datemask').inputmask('mm/yyyy', { 'placeholder': 'mm/yyyy' })
+</script>

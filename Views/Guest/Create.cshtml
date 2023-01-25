@@ -1,0 +1,40 @@
+﻿@model HostelManagementSystem.Data.Guest
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<form asp-action="Create">
+    <div class="row">
+        <div class="col-lg-6 mb-2">
+            <label class="control-label">Guest Name</label>
+            <input type="text" asp-for="Name" class="form-control" placeholder="name">
+        </div>
+        <div class="col-lg-6 mb-2">
+            <label class="control-label">CNIC</label>
+            <input type="text" asp-for="CNIC" class="form-control" placeholder="cnic no">
+        </div>
+        <div class="col-lg-6 mb-2">
+            <label class="control-label">Phone</label>
+            <input type="text" asp-for="Phone" class="form-control" placeholder="phone">
+        </div>
+        <div class="col-lg-6 mb-2">
+            <label class="control-label">Arriving date</label>
+            <input type="date" asp-for="ArrivingDate" class="form-control" placeholder="">
+        </div>
+        <div class="col-lg-6 mb-2">
+            <label class="control-label">Leaving date</label>
+            <input type="date" asp-for="LeavingDate" class="form-control" placeholder="">
+        </div>
+        <div class="col-lg-6 mb-2">
+            <label class="control-label">Guest Of</label>
+            <select class="form-control" asp-for="StudentId" asp-items="ViewBag.Student" required>
+                <option value="">---Select Student----</option>
+            </select>
+        </div>
+
+    </div>
+    <input type="submit" value="submit" />
+</form>
+

@@ -15,5 +15,7 @@ namespace HostelManagementSystem.Data
         public DbSet<Student> Students { get; set; }
         public DbSet<Floor> Floors { get; set; }
         public DbSet<StudentMonthlyFee> StudentMonthlyFee { get;set; }
+        public DbSet<ReceiveFee> ReceiveFees { get;set; }
+        public DbSet<Guest> Guests { get;set; }
     }
 }

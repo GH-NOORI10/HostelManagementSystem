@@ -1,4 +1,4 @@
-﻿@model IList<HostelManagementSystem.Data.StudentMonthlyFee>
+﻿@model IList<HostelManagementSystem.Data.Guest>
 @{
     ViewData["Title"] = "Index";
 }
@@ -10,14 +10,16 @@
                 <div class="card">
                     <!-- /.card-header -->
                     <div class="card-body">
-                        <a class="btn btn-info text-sm-left mb-2" href="/StudentMonthlyFee/Create">Add StudentMonthlyFee</a>
+                        <a class="btn btn-info text-sm-left mb-2" href="/Guest/Create">Add Guest</a>
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
-                                    <th>Month</th>
-                                    <th>Fee</th>
-                                    <th>Admission Fee</th>
-                                    <th>Student Name</th>
+                                    <th>Guest Name</th>
+                                    <th>CNIC</th>
+                                    <th>Phone</th>
+                                    <th>Arriving Date</th>
+                                    <th>Leaving Date</th>
+                                    <th>Guest Of</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -25,12 +27,15 @@
                                 @foreach (var item in Model)
                                 {
                                     <tr>
-                                        <td>@item.Month</td>
-                                        <td>@item.Fee</td>
-                                        <td>@item.AdmissionFee</td>
+                                        <td>@item.Name</td>
+                                        <td>@item.CNIC</td>
+                                        <td>@item.Phone</td>
+                                        <td>@item.ArrivingDate</td>
+                                        <td>@item.LeavingDate</td>
                                         <td>@item.Student.Name</td>
+
                                         <td>
-                                            <a class="btn btn-success btn-sm" href="/Room/Edit/@item.Id">Edit</a>
+                                            <a class="btn btn-success btn-sm" href="/Guest/Edit/@item.Id">Edit</a>
                                             <a class="btn btn-danger btn-sm" onclick="deletead(@item.Id)">Delete</a>
                                         </td>
                                     </tr>
@@ -56,8 +61,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.7.0/sweetalert2.min.js"></script>
 
 <script>
-    
-
     var dsd = $('#dsf').val();
 
 
@@ -73,7 +76,7 @@
         }).then((result) => {
             if (result.isConfirmed) {
 
-                $.post("/StudentMonthlyFee/Delete/" + val, function (data) {
+                $.post("/Guest/Delete/" + val, function (data) {
                     if (data == "success") {
                         Swal.fire(
                             'Deleted!',
@@ -98,4 +101,5 @@
 
 
 </script>
+
 

@@ -1,0 +1,31 @@
+﻿@model HostelManagementSystem.Data.ReceiveFee
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<form asp-action="Create">
+    <div class="row">
+        <div class="col-lg-6 mb-2">
+            <label class="control-label">Receive Fee date</label>
+            <input type="date" asp-for="ReceiveFeeDate" class="form-control" placeholder="">
+        </div>
+        <div class="col-lg-6 mb-2">
+            <label class="control-label">Student Monthly Fee</label>
+            <select class="form-control" asp-for="StudentMonthlyFeeId" asp-items="ViewBag.StudentMonthlyFee" required>
+                <option value="">---Select----</option>
+            </select>
+        </div>
+    </div>
+    <input type="submit" value="submit" />
+</form>
+
+
+<script src="~/plugins/moment/moment.min.js"></script>
+
+<script src="~/plugins/inputmask/jquery.inputmask.min.js"></script>
+
+<script>
+    $('#datemask').inputmask('mm/yyyy', { 'placeholder': 'mm/yyyy' })
+</script>

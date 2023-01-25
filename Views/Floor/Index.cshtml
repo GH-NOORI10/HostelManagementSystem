@@ -3,34 +3,44 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
-<div class="col-12">
-    <div class="col-12 mb-2">
-        <a class="btn btn-info text-sm-left" href="/Floor/Create">Create Floor</a>
-    </div>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>FloorLocation</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tboady>
-            @foreach(var item in Model)
-            {
-              <tr>
-                    <td>@item.FloorLocation</td>
-                  <td>
-                      <a class="btn btn-success btn-sm" href="/Floor/Edit/@item.Id">Edit</a>
-                        <a class="btn btn-danger btn-sm" onclick="deletead(@item.Id)">Delete</a>
-                  </td>
-              </tr>
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <a class="btn btn-info text-sm-left mb-2" href="/Floor/Create">Fee Receive</a>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Floor</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@item.FloorLocation</td>
+                                        <td>
+                                            <a class="btn btn-success btn-sm" href="/Room/Edit/@item.Id">Edit</a>
+                                            <a class="btn btn-danger btn-sm" onclick="deletead(@item.Id)">Delete</a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+                <!-- /.card -->
+            </div>
+        </div>
 
-            }
-            
-        </tboady>
-    </table>
-</div>
+    </div><!-- /.container-fluid -->
+</section>
 
 <script src="~/plugins/jquery/jquery.min.js"></script>
 <script src="~/plugins/jquery/jquery.slim.min.js"></script>

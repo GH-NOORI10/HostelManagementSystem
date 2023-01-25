@@ -7,12 +7,11 @@
         public string Email { get; set; }
         public string Phone { get; set; }
         public DateTime AdmissionDate { get; set; }
-        public DateTime LeavingDate { get; set; }
-
 
         public int? RoomId { get; set; }
         public Room? Room { get; set; }
 
-        
+        public List<StudentMonthlyFee> StudentMonthlyFee { get; set; }
+
     }
 }

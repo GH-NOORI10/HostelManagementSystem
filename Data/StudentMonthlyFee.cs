@@ -9,5 +9,7 @@
 
         public int? StudentId { get; set; }
         public Student? Student { get; set; }
+
+        public List<ReceiveFee> ReceiveFee { get; set; }
     }
 }
